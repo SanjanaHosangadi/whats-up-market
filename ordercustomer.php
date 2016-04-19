@@ -62,7 +62,7 @@
 		<div style="padding-left:'30px';margin-left:30px;">
 					<?php
 				
-						if($_POST['customer_order']=="")
+						if(!isset($_POST['customer_order']))
 						{
 							echo "You did not choose an option. Please choose either name or ID of the employee to search";
 						}
@@ -78,8 +78,7 @@
 							else
 							{
 								$cust_name = $_POST['searchfor'];
-								$sql ="  SELECT o.o_id, o.c_id, o.date, o.time, o.status FROM customer as c ,`order` as o  WHERE c.C_ID=o.c_id AND c.Name LIKE '".$cust_name."'";
-								$result = $conn->query($sql);
+								$sql ="  SELECT o.o_id, o.c_id, o.date, o.time, o.status FROM customer as c ,`order` as o  WHERE c.C_ID=o.c_id AND c.Name LIKE '%".$cust_name."%'";							$result = $conn->query($sql);
 							}
 					
 							echo "<br/>";

@@ -62,7 +62,8 @@
 		<div style="padding-left:'30px';margin-left:30px;">
 					<?php
 				
-						if($_POST['customer_search']=="")
+						//if($_POST['customer_search']=="")
+						if(!isset($_POST['customer_search']))
 						{
 							echo "You did not choose an option. Please choose either name or ID of the employee to search";
 						}

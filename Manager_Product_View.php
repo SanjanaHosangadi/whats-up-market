@@ -28,7 +28,6 @@ if($result->num_rows > 0)
       }
   }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,34 +61,37 @@ if($result->num_rows > 0)
     </ul>
   </div>
   </nav>
-   <div class="container-fluid">
+  <div class="container-fluid">
     <div class="row">
       <div id ="side" class="col-md-3 text-center" style="left:-75px;margin-top:-21px;background-color:#e0e0e0;z-index:100;height:100%">
         <div class="list-group" style="margin-right:-15px;margin-left:2px">
     <a href="Manager_Employee_View.php" class="list-group-item "><h4>Employee</h4></a>
-    <a href="Manager_Customer_View.php" class="list-group-item active"><h4>Customer</h4></a>
+    <a href="Manager_Customer_View.php" class="list-group-item"><h4>Customer</h4></a>
     <a href="Manager_Accounts_Summary.php" class="list-group-item"><h4>Accounts</h4></a>
     <a href="Manager_Supply_ViewVendor.php" class="list-group-item"><h4>Supply</h4></a>
-    <a href="Manager_Product_View.php" class="list-group-item"><h4>Products</h4></a>
+    <a href="Manager_Product_View.php" class="list-group-item active"><h4>Products</h4></a>
   </div>
       </div>
-      <div class="col-md-9 container">
+       <div class="col-md-9 container">
         <ul class="nav nav-tabs nav-justified" style="margin-left:-105px;margin-top:-21px;">
-        <li class="active" ><a href="Manager_Customer_View.php" style="font:bold 20px;">View</a></li>
-        <li><a href="Manager_Customer_Search.php">Search</a></li>
-        <li><a href="Manager_Customer_PendingOrders.php">Orders</a></li>
+		<li class="active"><a href="Manager_Product_View.php">View</a></li>
+        <li><a href="Manager_Product_Add.php" style="font:bold 20px;">Add an item</a></li>
         </ul>
 <?php
-	$sql =" SELECT * FROM customer";
+	$sql = "SELECT i.I_ID, i.Item_Name, i.Cat_Id, s.s_id, b.barcode, s.quantity, b.exp_date FROM stock as s,items as i, barcode as b WHERE i.I_ID = s.i_id AND s.s_id = b.s_id ORDER by b.exp_date";
 	$result = $conn->query($sql);
 	echo "<br/>";
 	echo "<table class='table table-striped' class = 'table table-bordered' style='margin-left:-90px;margin-top:-10px '>";
 	echo "<thead>
       <tr>
-         <th>Customer ID</th>
-         <th>Name</th>
-         <th>Email ID</th>
-		 <th>Contact No.</th>
+         <th>Item ID</th>
+		 <th>Item Name</th>
+		 <th>Category Id</th>
+         <th>Stock ID</th>
+		 <th>Barcode</th>
+         <th>Quantity</th>
+		 <th>Expiry Date</th>
+
       </tr>
    </thead>
    <tbody>";
@@ -99,10 +101,14 @@ if($result->num_rows > 0)
 		while($row = $result->fetch_assoc())
 		{
 			echo " <tr>
-						 <td>".$row["C_ID"]."</td>
-						 <td>".$row["Name"]."</td>
-						 <td>".$row["Email_id"]."</td>
-						 <td>".$row["Contact_No"]."</td>
+						 <td>".$row["I_ID"]."</td>
+						 <td>".$row["Item_Name"]."</td>
+						 <td>".$row["Cat_Id"]."</td>
+						 <td>".$row["s_id"]."</td>
+						 <td>".$row["barcode"]."</td>
+						 <td>".$row["quantity"]."</td>
+						 <td>".$row["exp_date"]."</td>
+
 					  </tr>";
 		}
 	}
